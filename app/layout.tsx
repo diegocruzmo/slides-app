@@ -30,9 +30,7 @@ export default function RootLayout({
       }}
     >
       <html lang="en">
-        <body className={`${roboto.className} md:mx-6 antialiased`}>
-          {children}
-        </body>
+        <body className={`${roboto.className} antialiased`}>{children}</body>
       </html>
     </ClerkProvider>
   );
