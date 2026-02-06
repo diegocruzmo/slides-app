@@ -21,7 +21,7 @@ export function Header() {
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Crea tu Presentación</DialogTitle>
+              <DialogTitle className="mb-2">Crea tu Presentación</DialogTitle>
               <FormCreateSlide />
             </DialogHeader>
           </DialogContent>
