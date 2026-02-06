@@ -24,19 +24,14 @@ export function AppSidebar() {
     <Sidebar collapsible="icon">
       <SidebarContent className="bg-slate-100">
         <SidebarHeader>
-          <Link href={"/"} className="flex flex-row items-center">
+          <Link href={"/"} className="flex items-center justify-center">
             <Image
-              src="/logo2.png"
+              src="/logo.png"
               alt="logo"
-              width={40}
-              height={40}
-              className="mr-2 rounded-xl"
+              width={50}
+              height={50}
+              className="rounded-xl"
             ></Image>
-            {state === "expanded" && (
-              <span className="text-xl font-semibold text-slate-800 tracking-wide">
-                Slides
-              </span>
-            )}
           </Link>
         </SidebarHeader>
 
