@@ -6,3 +6,7 @@ export interface UsersListProps {
     totalCount: number;
   };
 }
+
+export type PublicMetadata = {
+  role?: "admin" | "user";
+};
