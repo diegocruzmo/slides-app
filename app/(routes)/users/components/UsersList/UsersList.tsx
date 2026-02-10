@@ -49,7 +49,9 @@ export async function UsersList({ users }: UsersListProps) {
                     {user.emailAddresses[0]?.emailAddress}
                   </TableCell>
 
-                  <TableCell>{user?.firstName}</TableCell>
+                  <TableCell>
+                    {user?.firstName || user?.emailAddresses[0]?.emailAddress}
+                  </TableCell>
 
                   <TableCell className="text-center">
                     <span
