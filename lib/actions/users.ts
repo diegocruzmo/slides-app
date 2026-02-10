@@ -28,9 +28,6 @@ export async function inviteUserByAdmin(data: InviteUserData) {
     await client.invitations.createInvitation({
       emailAddress: data.email,
       redirectUrl: `${process.env.NEXT_PUBLIC_APP_URL}/sign-in`,
-      publicMetadata: {
-        role: data.role ?? "user",
-      },
     });
   } catch (error) {
     console.error("Error creando la invitación:", error);
