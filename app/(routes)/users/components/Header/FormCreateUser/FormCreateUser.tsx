@@ -13,20 +13,37 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { formSchema } from "./FormCreateUser.form";
+import { toast } from "sonner";
 
-export function FormCreateUser() {
+import { formSchema } from "./FormCreateUser.form";
+import { inviteUserByAdmin } from "@/lib/actions/users";
+import { FormCreateUserProps } from "./FormCreateUser.types";
+
+export function FormCreateUser({ onSuccess }: FormCreateUserProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       email: "",
-      password: "",
     },
   });
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    try {
+      await inviteUserByAdmin({
+        name: data.name,
+        email: data.email,
+        role: "user",
+      });
+
+      form.reset();
+      toast.success("Invitación enviada correctamente");
+
+      onSuccess?.();
+    } catch (error) {
+      console.error(error);
+      toast.error("No se ha podido enviar la invitación");
+    }
   }
 
   return (
@@ -75,25 +92,6 @@ export function FormCreateUser() {
                 </Field>
               )}
             />
-
-            <Controller
-              name="password"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="form-user-password">Password</FieldLabel>
-                  <Input
-                    {...field}
-                    id="form-user-password"
-                    type="password"
-                    aria-invalid={fieldState.invalid}
-                  />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            />
           </FieldGroup>
         </form>
       </CardContent>
@@ -101,11 +99,11 @@ export function FormCreateUser() {
         <Field orientation="horizontal">
           <Button
             type="submit"
-            variant={"secondary"}
+            variant="secondary"
             form="form-user"
             className="text-slate-50"
           >
-            Guardar
+            Enviar
           </Button>
         </Field>
       </CardFooter>

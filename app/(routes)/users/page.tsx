@@ -1,12 +1,10 @@
-import { currentUser } from "@clerk/nextjs/server";
 import { clerkClient } from "@clerk/nextjs/server";
 
+import { requireAdmin } from "@/lib/auth/roles";
 import { Header, UsersList } from "./components";
 
 export default async function UserPage() {
-  const user = await currentUser();
-
-  if (!user) return <p>Usuario no autenticado</p>;
+  await requireAdmin();
 
   const client = await clerkClient();
   const users = await client.users.getUserList();

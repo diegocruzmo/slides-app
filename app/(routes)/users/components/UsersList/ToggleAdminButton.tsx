@@ -2,7 +2,7 @@
 
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { toggleUserAdmin } from "@/app/actions/users";
+import { toggleUserAdmin } from "@/lib/actions/users";
 
 export function ToggleAdminButton({
   userId,

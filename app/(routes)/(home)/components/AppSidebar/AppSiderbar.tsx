@@ -16,9 +16,18 @@ import {
 } from "@/components/ui/sidebar";
 import { routes } from "./AppSidebar.data";
 
-export function AppSidebar() {
+type Props = {
+  role: string;
+};
+
+export function AppSidebar({ role }: Props) {
   const { state } = useSidebar();
   const pathname = usePathname();
+
+  const visibleRoutes = routes.filter((route) => {
+    if (!route.roles) return true;
+    return route.roles.includes(role);
+  });
 
   return (
     <Sidebar collapsible="icon">
@@ -38,7 +47,7 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel>Plataforma</SidebarGroupLabel>
           <SidebarMenu className="space-y-2">
-            {routes.map(({ title, path, Icon }) => {
+            {visibleRoutes.map(({ title, path, Icon }) => {
               const isActive = pathname === path;
 
               return (

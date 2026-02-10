@@ -4,6 +4,6 @@ export const routes = [
   { title: "Inicio", path: "/", Icon: House },
   { title: "Presentaciones", path: "/slides", Icon: BookText },
   { title: "Mis Presentaciones", path: "/my-slides", Icon: BookHeart },
-  { title: "Usuarios", path: "/users", Icon: User2 },
+  { title: "Usuarios", path: "/users", Icon: User2, roles: ["admin"] },
   { title: "Ajustes", path: "/settings", Icon: Settings2 },
 ];
