@@ -25,12 +25,27 @@ export async function inviteUserByAdmin(data: InviteUserData) {
   const client = await clerkClient();
 
   try {
-    await client.invitations.createInvitation({
+    const res = await client.invitations.createInvitation({
       emailAddress: data.email,
       redirectUrl: `${process.env.NEXT_PUBLIC_APP_URL}/sign-in`,
+      publicMetadata: {
+        role: data.role ?? "user",
+      },
     });
-  } catch (error) {
-    console.error("Error creando la invitación:", error);
-    throw new Error("No se pudo enviar la invitación");
+
+    console.log("✅ INVITATION OK", res.id);
+    return res;
+  } catch (err: any) {
+    console.error("FULL ERROR OBJECT:");
+    console.error(err);
+
+    if (err.errors) {
+      console.error("CLERK ERRORS ARRAY:");
+      for (const e of err.errors) {
+        console.error(JSON.stringify(e, null, 2));
+      }
+    }
+
+    throw new Error("INVITATION_FAILED");
   }
 }
