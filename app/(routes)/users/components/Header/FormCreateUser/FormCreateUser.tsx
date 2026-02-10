@@ -23,7 +23,6 @@ export function FormCreateUser({ onSuccess }: FormCreateUserProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
       email: "",
     },
   });
@@ -31,7 +30,6 @@ export function FormCreateUser({ onSuccess }: FormCreateUserProps) {
   async function onSubmit(data: z.infer<typeof formSchema>) {
     try {
       await inviteUserByAdmin({
-        name: data.name,
         email: data.email,
         role: "user",
       });
@@ -51,27 +49,6 @@ export function FormCreateUser({ onSuccess }: FormCreateUserProps) {
       <CardContent>
         <form id="form-user" onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup>
-            <Controller
-              name="name"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="form-user-name">
-                    Nombre del usuario
-                  </FieldLabel>
-                  <Input
-                    {...field}
-                    id="form-user-name"
-                    type="text"
-                    aria-invalid={fieldState.invalid}
-                  />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            />
-
             <Controller
               name="email"
               control={form.control}

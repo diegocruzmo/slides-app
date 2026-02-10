@@ -30,7 +30,6 @@ export async function inviteUserByAdmin(data: InviteUserData) {
       redirectUrl: `${process.env.NEXT_PUBLIC_APP_URL}/sign-in`,
       publicMetadata: {
         role: data.role ?? "user",
-        name: data.name,
       },
     });
   } catch (error) {
