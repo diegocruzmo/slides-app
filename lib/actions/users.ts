@@ -28,6 +28,9 @@ export async function inviteUserByAdmin(data: InviteUserData) {
   const baseUrl = getBaseUrl();
   const redirectUrl = new URL("/sign-up", baseUrl).toString();
 
+  console.log("BASE URL:", getBaseUrl());
+  console.log("INVITE REDIRECT URL:", redirectUrl);
+
   try {
     await client.invitations.createInvitation({
       emailAddress: data.email,
