@@ -27,7 +27,7 @@ export async function inviteUserByAdmin(data: InviteUserData) {
   try {
     await client.invitations.createInvitation({
       emailAddress: data.email,
-      redirectUrl: `${process.env.NEXT_PUBLIC_APP_URL}/sign-in`,
+      redirectUrl: `${process.env.NEXT_PUBLIC_APP_URL}/sign-up`,
       publicMetadata: {
         role: data.role ?? "user",
       },
