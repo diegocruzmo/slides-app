@@ -32,17 +32,8 @@ export async function inviteUserByAdmin(data: InviteUserData) {
         role: data.role ?? "user",
       },
     });
-  } catch (err: any) {
-    console.error("FULL ERROR OBJECT:");
-    console.error(err);
-
-    if (err.errors) {
-      console.error("CLERK ERRORS ARRAY:");
-      for (const e of err.errors) {
-        console.error(JSON.stringify(e, null, 2));
-      }
-    }
-
-    throw new Error("INVITATION_FAILED");
+  } catch (error) {
+    console.error("Error creando la invitación:", error);
+    throw new Error("No se pudo enviar la invitación");
   }
 }
