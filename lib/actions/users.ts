@@ -4,6 +4,7 @@ import type { InviteUserData } from "./users.types";
 
 import { clerkClient } from "@clerk/nextjs/server";
 import { requireAdmin } from "@/lib/auth/roles";
+import { getBaseUrl } from "../baseUrl";
 
 export async function toggleUserAdmin(targetUserId: string) {
   await requireAdmin();
@@ -24,10 +25,13 @@ export async function inviteUserByAdmin(data: InviteUserData) {
 
   const client = await clerkClient();
 
+  const baseUrl = getBaseUrl();
+  const redirectUrl = new URL("/sign-up", baseUrl).toString();
+
   try {
     await client.invitations.createInvitation({
       emailAddress: data.email,
-      redirectUrl: `${process.env.NEXT_PUBLIC_APP_URL}/sign-up`,
+      redirectUrl,
       publicMetadata: {
         role: data.role ?? "user",
       },
