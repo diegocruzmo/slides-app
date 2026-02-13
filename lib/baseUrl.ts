@@ -1,9 +1,7 @@
 export function getBaseUrl() {
-  const url = process.env.NEXT_PUBLIC_APP_URL;
-
-  if (!url) {
-    throw new Error("NEXT_PUBLIC_APP_URL is not defined");
+  if (process.env.NEXT_PUBLIC_APP_URL) {
+    return process.env.NEXT_PUBLIC_APP_URL;
   }
 
-  return url;
+  return "http://localhost:3000";
 }
